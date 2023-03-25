@@ -111,20 +111,38 @@ public interface FlippingConfig extends Config
 	default boolean verboseViewEnabled() { return true; }
 
 	@ConfigItem(
-			keyName = "slotTimerBuyTextColor",
-			name = "slot timer buy text color",
-			description = "the color of the buy text on the slot timers"
+		keyName = "slotTimerBuyTextColor",
+		name = "slot timer buy text color",
+		description = "the color of the buy text on the slot timers"
 	)
 	default Color slotTimerBuyColor() {
 		return ColorScheme.GRAND_EXCHANGE_LIMIT;
 	}
 
 	@ConfigItem(
-			keyName = "slotTimerSellTextColor",
-			name = "slot timer sell text color",
-			description = "the color of the sell text on the slot timers"
+		keyName = "slotTimerSellTextColor",
+		name = "slot timer sell text color",
+		description = "the color of the sell text on the slot timers"
 	)
 	default Color slotTimerSellColor() {
 		return ColorScheme.GRAND_EXCHANGE_ALCH;
+	}
+
+	@ConfigItem(
+		keyName = "viewedItemLoggingURL",
+		name = "Viewed Item Logging URL",
+		description = "Optional URL to send notifications to when viewing items"
+	)
+	default String viewedItemLoggingURL() {
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "viewedItemLoggingID",
+		name = "Viewed Item Logging ID",
+		description = "Identifier to send with viewed-item log messages. Requires the Viewed Item Logging URL to be populated."
+	)
+	default String viewedItemLoggingID() {
+		return "";
 	}
 }

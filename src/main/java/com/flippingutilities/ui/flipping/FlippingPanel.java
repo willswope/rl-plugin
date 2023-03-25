@@ -28,12 +28,14 @@ package com.flippingutilities.ui.flipping;
 
 import com.flippingutilities.controller.FlippingPlugin;
 import com.flippingutilities.model.FlippingItem;
+import com.flippingutilities.model.ItemViewEvent;
 import com.flippingutilities.model.OfferEvent;
 import com.flippingutilities.ui.offereditor.OfferEditorContainerPanel;
 import com.flippingutilities.ui.uiutilities.Icons;
 import com.flippingutilities.ui.uiutilities.Paginator;
 import com.flippingutilities.ui.uiutilities.UIUtilities;
 import com.flippingutilities.utilities.Constants;
+import com.flippingutilities.utilities.DataLogging;
 import com.flippingutilities.utilities.Searchable;
 import com.flippingutilities.utilities.WikiRequest;
 import com.google.common.base.Strings;
@@ -276,6 +278,18 @@ public class FlippingPanel extends JPanel
 			paginator.setPageNumber(1);
 			itemHighlighted = true;
 			rebuild(Collections.singletonList(item));
+		});
+
+		SwingUtilities.invokeLater(() -> {
+			String loggingUrl = plugin.getConfig().viewedItemLoggingURL();
+			String loggingId = plugin.getConfig().viewedItemLoggingID();
+
+			log.info("highlightItem call");
+
+			if (loggingUrl != "") {
+				ItemViewEvent viewEvent = new ItemViewEvent(loggingId, item.getItemId());
+				DataLogging.postViewedItemEvent(loggingUrl, viewEvent);
+			}
 		});
 	}
 
